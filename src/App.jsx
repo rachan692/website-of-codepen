@@ -1,47 +1,66 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { MaterialUi } from './components/MaterialUi'
-import Header from './components/Header'
-import { Route, Routes } from 'react-router-dom'
-import Home from './Pages/Home'
-import About from './Pages/About'
-import Product from './Pages/Product'
-import Contact from './Pages/Contact'
+import React, { useContext, useEffect, useState } from 'react';
+import Login from './Auth/Login';
+import EmployeeDashboard from './Dashboard/EmployeeDashboard';
+import AdminDashboard from './Dashboard/AdminDashboard';
+import { AuthContext } from './Context/AuthProvider';
 
 const App = () => {
-  const [data, setData] = useState([])
-
-  const getData = async () => {
-    const response = await axios.get('https://fakestoreapi.com/products')
-    setData(response.data)
-    console.log(response.data)
-  }
+  const [user, setUser] = useState(null);
+  const [loggedInUserData, setLoggedInUserData] = useState(null);
+  const [loading, setLoading] = useState(true);  // Add loading state
+  const { userData } = useContext(AuthContext);
 
   useEffect(() => {
-    getData()
-  }, [])
+    const loggedInUser = localStorage.getItem('loggedInUser');
+    if (loggedInUser) {
+      const userData = JSON.parse(loggedInUser);
+      setUser(userData.role);
+      setLoggedInUserData(userData.data);
+    }
+    setLoading(false);  // Stop loading once the check is done
+  }, []);
+
+  const handleLogin = (email, password) => {
+    // Check if the user is an admin
+    if (email === 'admin@me.com' && password === '123') {
+      handleAdminLogin();
+    } else if (userData) {
+      const employee = userData.employees.find((e) => e.email === email && e.password === password);
+      if (employee) {
+        handleEmployeeLogin(employee);
+      } else {
+        console.log('Invalid Credentials');
+      }
+    }
+  };
+
+  const handleAdminLogin = () => {
+    setUser('admin');
+    localStorage.setItem('loggedInUser', JSON.stringify({ role: 'admin' }));
+  };
+
+  const handleEmployeeLogin = (employee) => {
+    setUser('employee');
+    setLoggedInUserData(employee);
+    localStorage.setItem('loggedInUser', JSON.stringify({ role: 'employee', data: employee }));
+  };
+
+  // If still loading, show nothing or a loading spinner
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <div>
-      <Header/>
-      <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/about' element={<About/>}/>
-        <Route path='/contact' element={<Contact/>}/>
-        
-        {/* Product route: display the product cards */}
-        <Route path='/product' element={
-          <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
-            {data.map((elem, idx) => (
-              <div key={idx}>
-                <MaterialUi name={elem.title} img={elem.image} des={elem.description} />
-              </div>
-            ))}
-          </div>
-        }/>
-      </Routes>
-    </div>
-  )
-}
+    <>
+      {!user ? (
+        <Login handleLogin={handleLogin} />
+      ) : user === 'admin' ? (
+        <AdminDashboard />
+      ) : user === 'employee' ? (
+        <EmployeeDashboard data={loggedInUserData} />
+      ) : null}
+    </>
+  );
+};
 
-export default App
+export default App;

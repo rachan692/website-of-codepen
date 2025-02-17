@@ -1,16 +1,22 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { setLocalStorage } from '../Utils/LocalStorage'
 
 const Header = () => {
+  // const [username, setUsername] = useState('')
+  // if(!data){
+  //   setUsername('Admin')
+  // }else{
+  //   setUsername(data.firstName)
+  // }
+  const logOutUser = ()=>{
+localStorage.setItem('loggeddInUser','')
+window.location.reload()
+}
+localStorage.clear()
   return (
-    <div className='bg-fuchsia-700 p-3 m-2 flex justify-between items-center'>
-      <h1 className='text-white text-lg font-bold'>Sagarmatha Fashion Wears</h1>
-      <div className='flex space-x-4'>
-        <Link to={'/'} className='text-white hover:text-fuchsia-300'>Home</Link>
-        <Link to={'/about'} className='text-white hover:text-fuchsia-300'>About</Link>
-        <Link to={'/contact'} className='text-white hover:text-fuchsia-300'>Contact</Link>
-        <Link to={'/product'} className='text-white hover:text-fuchsia-300'>Product</Link>
-      </div>
+    <div className='flex items-end justify-between'>
+        <h1 className='text-2xl font-medium text-white'>Hello <br/><span className='text-3xl font-semibold' >username 👋</span></h1>
+    <button onClick={logOutUser} className='bg-red-600 text-lg font-medium text-white px-5 py-2 rounded-sm '>Log Out</button>
     </div>
   )
 }
