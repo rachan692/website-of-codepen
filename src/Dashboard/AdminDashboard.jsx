@@ -1,11 +1,11 @@
 import React from 'react';
-import Header from '../Components/Header'; // Ensure this path is correct based on your folder structure
-import CreateTask from '../Components/CreateTask';
-import AllTask from '../Components/AllTask';
+import Header from '../components/Header';  // Corrected path with lowercase 'c'
+import CreateTask from '../components/CreateTask'; // Correct path
+import AllTask from '../components/AllTask'; // Correct path
 
 const AdminDashboard = () => {
   return (
-    <div className="min-h-screen w-full p-5 sm:p-7 lg:p-10 bg-gray-100">
+    <div className="min-h-screen w-full p-5 sm:p-7 lg:p-10 bg-[#1C1C1C]">
       {/* Header Section */}
       <div className="mb-6">
         <Header />

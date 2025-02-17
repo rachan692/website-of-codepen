@@ -1,12 +1,12 @@
 import React from 'react';
-import Header from '../Components/Header';  // Correct the import path
-import TaskListNumber from '../Components/TaskListNumber';
+import TaskListNumber from '../components/TaskListNumber';
 import TaskList from '../TaskList/TaskList';
+import Header from '../components/Header';  // Corrected import
 
 const EmployeeDashboard = ({ data }) => {
   return (
     <div className='p-10 bg-[#1C1C1C] h-screen'>
-      <Header data={data} />
+      <Header data={data} />  {/* Passing data as a prop to Header */}
       <TaskListNumber data={data} />
       <TaskList data={data} />
     </div>
