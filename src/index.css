@@ -3,17 +3,3 @@
 @tailwind utilities;
 
 /* Ensure the body has a black background with white text */
-body {
-  background-color: black;
-  color: white; /* Set default text color to white */
-}
-
-/* Make sure the input text is white for visibility */
-input {
-  color: white;
-}
-
-/* Hide the scrollbar for the task list */
-#taskList::-webkit-scrollbar {
-  display: none;
-}
