@@ -138,16 +138,16 @@ const NewProject = () => {
               )}
             </div>
 
-            {/* Display the same name below the title */}
+            {/* Display the project name below the title */}
             <div className='flex items-center'>
               <p className='text-gray-400 text-xs'>
-                Rachan Basnet
+                {titleText} {/* Changed from hardcoded name to dynamic titleText */}
               </p>
             </div>
           </div>
         </div>
 
-        {/* Action buttons */}
+        {/* Rest of the code remains the same */}
         <div className='flex items-center justify-center gap-2 relative'>
           <motion.button 
             whileTap={{ scale: 0.95 }} 
@@ -190,6 +190,7 @@ const NewProject = () => {
         </div>
       </header>
 
+      {/* Rest of the component remains the same */}
       {/* Settings Modal */}
       {isSettingsOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
@@ -220,86 +221,73 @@ const NewProject = () => {
 
       {/* Coding section */}
       <div className='flex-1 overflow-hidden'>
-        <SplitPane split='horizontal' minSize={100} maxSize={-100} defaultSize={'60%'}>
+        <SplitPane 
+          split="horizontal" 
+          minSize={100} 
+          maxSize={-100} 
+          defaultSize={"60%"}
+          className="custom-split-pane" // Added a class for potential custom styling
+        >
           {/* Top coding section */}
-          <SplitPane split='vertical' minSize={100} defaultSize={'33%'}>
-            {/* HTML code */}
-            <div className='w-full h-full flex flex-col items-start justify-start'>
+          <SplitPane 
+            split="vertical" 
+            minSize={100} 
+            defaultSize={"33%"}
+            className="custom-split-pane" // Added a class for potential custom styling
+          >
+            {/* HTML Code */}
+            <div className='w-full h-full flex flex-col'>
               <div className='w-full flex items-center justify-between bg-[#222]'>
-                <div className='px-3 py-1 border-t-4 flex items-center justify-center gap-2 border-t-gray-500'>
+                <div className='px-3 py-1 flex items-center gap-2'>
                   <FaHtml5 className='text-sm text-red-500' />
                   <p className='text-gray-300 font-medium text-sm'>HTML</p>
                 </div>
-                {/* icons */}
-                <div className='cursor-pointer flex justify-center gap-3 px-2'>
-                  <IoIosSettings className='text-sm text-gray-400' />
-                  <FaChevronDown className='text-sm text-gray-400' />
-                </div>
               </div>
-              {/* CodeMirror for HTML */}
-              <div className='w-full h-full bg-[#1e1e1e]'>
-                <CodeMirror
-                  value={htmlCode}
-                  height="100%"
-                  extensions={[html()]}
-                  theme="dark"
-                  onChange={handleHtmlChange}
-                />
-              </div>
+              <CodeMirror
+                value={htmlCode}
+                height="100%"
+                extensions={[html()]}
+                theme="dark"
+                onChange={handleHtmlChange}
+              />
             </div>
-            {/* CSS and JS code */}
-            <SplitPane split='vertical' minSize={100} defaultSize={'50%'}>
-              {/* CSS code */}
-              <div className='w-full h-full flex flex-col items-start justify-start'>
-                <div className='w-full flex items-center justify-between bg-[#222]'>
-                  <div className='px-3 py-1 border-t-4 flex items-center justify-center gap-2 border-t-gray-500'>
-                    <FaCss3 className='text-sm text-blue-600' />
-                    <p className='text-gray-300 font-medium text-sm'>CSS</p>
-                  </div>
-                  {/* icons */}
-                  <div className='cursor-pointer flex justify-center gap-3 px-2'>
-                    <IoIosSettings className='text-sm text-gray-400' />
-                    <FaChevronDown className='text-sm text-gray-400' />
-                  </div>
-                </div>
-                {/* CodeMirror for CSS */}
-                <div className='w-full h-full bg-[#1e1e1e]'>
-                  <CodeMirror
-                    value={cssCode}
-                    height="100%"
-                    extensions={[css()]}
-                    theme="dark"
-                    onChange={handleCssChange}
-                  />
+
+            {/* CSS Code */}
+            <div className='w-full h-full flex flex-col'>
+              <div className='w-full flex items-center justify-between bg-[#222]'>
+                <div className='px-3 py-1 flex items-center gap-2'>
+                  <FaCss3 className='text-sm text-blue-600' />
+                  <p className='text-gray-300 font-medium text-sm'>CSS</p>
                 </div>
               </div>
-              {/* JS code */}
-              <div className='w-full h-full flex flex-col items-start justify-start'>
-                <div className='w-full flex items-center justify-between bg-[#222]'>
-                  <div className='px-3 py-1 border-t-4 flex items-center justify-center gap-2 border-t-gray-500'>
-                    <FaJs className='text-sm text-yellow-400' />
-                    <p className='text-gray-300 font-medium text-sm'>JS</p>
-                  </div>
-                  {/* icons */}
-                  <div className='cursor-pointer flex justify-center gap-3 px-2'>
-                    <IoIosSettings className='text-sm text-gray-400' />
-                    <FaChevronDown className='text-sm text-gray-400' />
-                  </div>
-                </div>
-                {/* CodeMirror for JS */}
-                <div className='w-full h-full bg-[#1e1e1e]'>
-                  <CodeMirror
-                    value={jsCode}
-                    height="100%"
-                    extensions={[javascript()]}
-                    theme="dark"
-                    onChange={handleJsChange}
-                  />
+              <CodeMirror
+                value={cssCode}
+                height="100%"
+                extensions={[css()]}
+                theme="dark"
+                onChange={handleCssChange}
+              />
+            </div>
+
+            {/* JavaScript Code */}
+            <div className='w-full h-full flex flex-col'>
+              <div className='w-full flex items-center justify-between bg-[#222]'>
+                <div className='px-3 py-1 flex items-center gap-2'>
+                  <FaJs className='text-sm text-yellow-400' />
+                  <p className='text-gray-300 font-medium text-sm'>JS</p>
                 </div>
               </div>
-            </SplitPane>
+              <CodeMirror
+                value={jsCode}
+                height="100%"
+                extensions={[javascript()]}
+                theme="dark"
+                onChange={handleJsChange}
+              />
+            </div>
           </SplitPane>
-          {/* Bottom result section */}
+
+          {/* Bottom Result Section */}
           <div className='bg-white h-full'>
             <iframe 
               title="result"
