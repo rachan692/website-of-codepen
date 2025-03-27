@@ -11,13 +11,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@codemirror/basic-setup": "^0.20.0",
     "@codemirror/lang-css": "^6.2.0",
     "@codemirror/lang-html": "^6.4.6",
     "@codemirror/lang-javascript": "^6.2.1",
     "@codemirror/theme-one-dark": "^6.1.2",
     "@uiw/react-codemirror": "^4.21.9",
     "axios": "^1.6.2",
+    "codemirror": "^6.0.1",
     "firebase": "^10.7.1",
     "framer-motion": "^11.0.3",
     "react": "^18.2.0",
